@@ -19,7 +19,7 @@ class CustomJSONDecoder(json.JSONEncoder):
             return o.isoformat()
         return super(CustomJSONDecoder, self).default(o)
 
-def build_response(status: int, body: dict, jsonEncoder: JSONEncoder = CustomJSONDecoder, circular: bool = True) -> Dict:
+def build_response(status: int, body: dict or str, jsonEncoder: JSONEncoder = CustomJSONDecoder, circular: bool = True, is_body_str: bool = False) -> Dict:
     """ Devuelve el formato que acepta azure para una respuesta de HTTP
 
     Args:
@@ -33,7 +33,7 @@ def build_response(status: int, body: dict, jsonEncoder: JSONEncoder = CustomJSO
     """
     return {
         "statusCode": status,
-        "body": json.dumps(body, cls=jsonEncoder, circular=circular),
+        "body": body if type(body) is str else json.dumps(body, cls=jsonEncoder, check_circular=circular),
         "headers":  {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Credentials': True
@@ -63,15 +63,16 @@ def get_paginate_params(req: dict) -> Tuple[bool, int, int]:
         Tuple[bool, int, int]: Parametros de paginacion (Paginado, num de pagina, elementos por pagina)
     """
 
-    page = req['offset']
-    if page is not None:
-        page = int(page)
+    if req is None:
+        return (1, 100)
+
+    if 'page' in req:
+        page = int(req['page'])
     else:
         page = 1
 
-    per_page = req['limit']
-    if per_page is not None:
-        per_page = int(per_page)
+    if 'per_page' in req:
+        per_page = int(req['per_page'])
     else:
         per_page = 100
     

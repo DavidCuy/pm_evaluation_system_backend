@@ -1,14 +1,15 @@
 from __future__ import annotations
-from abc import abstractproperty
 from typing import Dict, List, Type
-from sqlalchemy import Column, Integer, orm, func
+from sqlalchemy import Column, Integer, orm
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.query import Query
 from typing import List
 
-from ....database.DBConnection import db
+from sqlalchemy.orm import declarative_base
 
-class BaseModel(db.Model):
+Base = declarative_base()
+
+class BaseModel(Base):
     """ Base model for a child classes implementations
 
     Args:
@@ -174,6 +175,7 @@ class BaseModel(db.Model):
                 raise e
 
         self.after_save()
+        return self
 
     def before_update(self, *args, **kwargs):
         """ Method to execute before update a row in database (polimorfism)
@@ -201,6 +203,7 @@ class BaseModel(db.Model):
 
         session.commit()
         self.after_update(*args, **kwargs)
+        return self
 
     def delete(self, session: Session, commit=True):
         """ Delete a specified register in database
