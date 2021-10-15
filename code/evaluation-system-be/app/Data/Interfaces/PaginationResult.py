@@ -16,7 +16,7 @@ class PaginationResult:
                 "current": ResourceReference(
                     type(data[0]),
                     prefix_model=prefix_link,
-                    sufix_model=f"?offset={offset}&limit={limit}")
+                    sufix_model=f"?page={offset}&per_page={limit}")
                     .to_dict()
             }
             self.Offset = offset
@@ -26,13 +26,13 @@ class PaginationResult:
             if (self.Offset * self.Limit) < self.Total:
                 self.Links["next"] = ResourceReference(
                     type(data[0]),
-                    prefix_model='/catalog',
-                    sufix_model=f"?offset={offset+1}&limit={limit}").to_dict()
+                    prefix_model=prefix_link,
+                    sufix_model=f"?page={offset+1}&per_page={limit}").to_dict()
             if self.Offset > 1:
                 self.Links["prev"] = ResourceReference(
                     type(data[0]),
-                    prefix_model='/catalog',
-                    sufix_model=f"?offset={offset-1}&limit={limit}").to_dict()
+                    prefix_model=prefix_link,
+                    sufix_model=f"?page={offset-1}&per_page={limit}").to_dict()
         else:
             self.Data = []
             self.Links = None
@@ -44,7 +44,7 @@ class PaginationResult:
         return {
             "Data": self.Data,
             "Links": self.Links,
-            "Offset": self.Offset,
+            "Page": self.Offset,
             "Limit": self.Limit,
             "Total": self.Total
         }

@@ -21,6 +21,9 @@ def env(env_key: str, default_value: Any) -> Any:
     else:
         return default_value
 
+APP_NAME    = env("APP_NAME", "API app")
+APP_URL     = env("APP_URL", "http://localhost")
+
 DB_HOST     = env("DB_HOST", "localhost")
 DB_USER     = env("DB_USER", "user")
 DB_PWD      = env("DB_PWD", "secret")

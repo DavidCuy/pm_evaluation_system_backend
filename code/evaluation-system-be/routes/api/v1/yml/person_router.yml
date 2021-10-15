@@ -13,3 +13,28 @@ find-person:
         path: /api/v1/persons/{id}
         method: get
         cors: ${self:custom.cors}
+
+create-person:
+  handler: routes/api/v1/PersonRoutes.route_insert
+  events:
+    - http:
+        path: /api/v1/persons
+        method: post
+        cors: ${self:custom.cors}
+
+update-person:
+  handler: routes/api/v1/PersonRoutes.route_update
+  events:
+    - http:
+        path: /api/v1/persons/{id}
+        method: put
+        cors: ${self:custom.cors}
+
+delete-person:
+  handler: routes/api/v1/PersonRoutes.route_delete
+  events:
+    - http:
+        path: /api/v1/persons/{id}
+        method: delete
+        cors: ${self:custom.cors}
+

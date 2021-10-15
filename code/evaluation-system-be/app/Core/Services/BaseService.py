@@ -63,3 +63,14 @@ class BaseService:
     def count_filtered(self, session: Session, filters: List[dict]) -> int:
         return cast(BaseModel, self.model).count_with_filters(session, filters)
     
+    def insert_register(self, session: Session, input_data: dict):
+        obj = self.model(**input_data)
+        return cast(BaseModel, obj).save(session)
+    
+    def update_register(self, session: Session, id: int, update_data: dict):
+        obj = self.get_one(session, id)
+        return cast(BaseModel, obj).update(session, update_data)
+    
+    def delete_register(self, session: Session, id: int):
+        obj = self.get_one(session, id)
+        return cast(BaseModel, obj).delete(session)

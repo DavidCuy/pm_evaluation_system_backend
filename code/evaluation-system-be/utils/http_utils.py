@@ -19,7 +19,7 @@ class CustomJSONDecoder(json.JSONEncoder):
             return o.isoformat()
         return super(CustomJSONDecoder, self).default(o)
 
-def build_response(status: int, body: dict, jsonEncoder: JSONEncoder = CustomJSONDecoder, circular: bool = True) -> Dict:
+def build_response(status: int, body: dict or str, jsonEncoder: JSONEncoder = CustomJSONDecoder, circular: bool = True, is_body_str: bool = False) -> Dict:
     """ Devuelve el formato que acepta azure para una respuesta de HTTP
 
     Args:
@@ -33,7 +33,7 @@ def build_response(status: int, body: dict, jsonEncoder: JSONEncoder = CustomJSO
     """
     return {
         "statusCode": status,
-        "body": json.dumps(body, cls=jsonEncoder, check_circular=circular),
+        "body": body if type(body) is str else json.dumps(body, cls=jsonEncoder, check_circular=circular),
         "headers":  {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Credentials': True

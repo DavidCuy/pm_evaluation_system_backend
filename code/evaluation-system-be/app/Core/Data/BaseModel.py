@@ -175,6 +175,7 @@ class BaseModel(Base):
                 raise e
 
         self.after_save()
+        return self
 
     def before_update(self, *args, **kwargs):
         """ Method to execute before update a row in database (polimorfism)
@@ -202,6 +203,7 @@ class BaseModel(Base):
 
         session.commit()
         self.after_update(*args, **kwargs)
+        return self
 
     def delete(self, session: Session, commit=True):
         """ Delete a specified register in database
