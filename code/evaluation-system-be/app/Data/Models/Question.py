@@ -1,5 +1,6 @@
 from typing import Dict, List
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.orm import relationship
 from ...Core.Data.BaseModel import BaseModel
 
@@ -15,11 +16,10 @@ class Question(BaseModel):
 
     __tablename__ = 'Questions'
     id = Column("IdQuestion", Integer, primary_key=True)
-    IdQuiz = Column("IdQuiz", Integer, nullable=False)
+    IdQuiz = Column("IdQuiz", Integer, ForeignKey('Quizzes.IdQuiz'))
     Description = Column("Description", String, nullable=True)
 
     quiz = relationship("Quiz", back_populates="questions")
-    answers = relationship("Answer", back_populates="question")
     
     model_path_name = "questions"
     

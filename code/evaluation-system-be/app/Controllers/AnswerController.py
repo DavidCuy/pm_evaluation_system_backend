@@ -1,2 +1,1 @@
-from app.Core.Controllers.BaseController import index
-from app.Core.Controllers.BaseController import find
+from app.Core.Controllers.BaseController import index, find, store, update, delete

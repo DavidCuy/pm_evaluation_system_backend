@@ -17,8 +17,6 @@ class Quiz(BaseModel):
     id = Column("IdQuiz", Integer, primary_key=True)
     Name = Column("Name", String, nullable=False)
     Description = Column("Description", String, nullable=True)
-
-    questions = relationship("Question", back_populates="quiz")
     
     model_path_name = "quizzes"
     
