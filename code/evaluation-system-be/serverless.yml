@@ -41,4 +41,5 @@ provider:
 functions:
   - ${file(routes/api/v1/yml/person_router.yml)}
   - ${file(routes/api/v1/yml/quiz_router.yml)}
+  - ${file(routes/api/v1/yml/question_router.yml)}
 

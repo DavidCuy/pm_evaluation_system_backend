@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.orm import relationship
 from ...Core.Data.BaseModel import BaseModel
+from .Quiz import Quiz
 
 class Question(BaseModel):
     """ Table Questions Database model
@@ -16,10 +17,10 @@ class Question(BaseModel):
 
     __tablename__ = 'Questions'
     id = Column("IdQuestion", Integer, primary_key=True)
-    IdQuiz = Column("IdQuiz", Integer, ForeignKey('Quizzes.IdQuiz'))
+    IdQuiz = Column("IdQuiz", Integer, ForeignKey(Quiz.id))
     Description = Column("Description", String, nullable=True)
 
-    quiz = relationship("Quiz", back_populates="questions")
+    quiz = relationship(Quiz)
     
     model_path_name = "questions"
     
