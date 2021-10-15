@@ -1,10 +1,11 @@
 from typing import cast
 
-from ...Data.Interfaces.PaginationResult import PaginationResult
 from ..Services.BaseService import BaseService
-from ....database.DBConnection import AlchemyEncoder, get_session
-from ....utils.http_utils import build_response, get_paginate_params
-from ...Data.Enum.http_status_code import HTTPStatusCode
+
+from app.Data.Interfaces.PaginationResult import PaginationResult
+from database.DBConnection import AlchemyEncoder, get_session
+from utils.http_utils import build_response, get_paginate_params
+from app.Data.Enum.http_status_code import HTTPStatusCode
 
 def index(service, event: dict):
     session = get_session()
@@ -24,9 +25,10 @@ def index(service, event: dict):
         session.close()
     return build_response(status_code, body, jsonEncoder=AlchemyEncoder)
 
-def find(service, event: dict, id: int):
+def find(service, event: dict):
     session = get_session()
-    
+    path_params = event['pathParameters']
+    id = int(path_params['id'])
     try:
         body = cast(BaseService, service).get_one(session, id)
         status_code = HTTPStatusCode.OK.value

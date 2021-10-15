@@ -1,14 +1,15 @@
 from __future__ import annotations
-from abc import abstractproperty
 from typing import Dict, List, Type
-from sqlalchemy import Column, Integer, orm, func
+from sqlalchemy import Column, Integer, orm
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.query import Query
 from typing import List
 
-from ....database.DBConnection import db
+from sqlalchemy.orm import declarative_base
 
-class BaseModel(db.Model):
+Base = declarative_base()
+
+class BaseModel(Base):
     """ Base model for a child classes implementations
 
     Args:
