@@ -21,3 +21,10 @@ def env(env_key: str, default_value: Any) -> Any:
     else:
         return default_value
 
+DB_HOST     = env("DB_HOST", "localhost")
+DB_USER     = env("DB_USER", "user")
+DB_PWD      = env("DB_PWD", "secret")
+DB_NAME     = env("DB_NAME", "dbname")
+DB_PORT     = env("DB_PORT", 3306)
+DB_ENGINE   = env("DB_ENGINE", "sql+engine")
+DB_DRIVER   = env("DB_DRIVER", "sql+driver")
