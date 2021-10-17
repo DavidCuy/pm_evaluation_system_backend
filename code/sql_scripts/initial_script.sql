@@ -39,6 +39,17 @@ CREATE TABLE Answers(
     CONSTRAINT Answers_IdQuestion_FK FOREIGN KEY(IdQuestion) REFERENCES Questions(IdQuestion) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS PersonsQuizzes;
+CREATE TABLE PersonsQuizzes(
+	IdPersonQuiz INT NOT NULL AUTO_INCREMENT,
+    IdPerson INT,
+    IdQuiz INT,
+
+	PRIMARY KEY(IdPersonQuiz),
+    CONSTRAINT PersonsQuizzes_IdPerson_FK FOREIGN KEY(IdPerson) REFERENCES Persons(IdPerson) ON DELETE CASCADE,
+    CONSTRAINT PersonsQuizzes_IdQuiz_FK FOREIGN KEY(IdQuiz) REFERENCES Quizzes(IdQuiz) ON DELETE CASCADE
+);
+
 DROP TABLE IF EXISTS PersonsAnwers;
 CREATE TABLE PersonsAnwers(
 	IdPersonAnswer INT NOT NULL AUTO_INCREMENT,

@@ -37,6 +37,11 @@ provider:
     DB_PORT: ${param:DB_PORT, env:DB_PORT}
     DB_ENGINE: ${param:DB_ENGINE, env:DB_ENGINE}
     DB_DRIVER: ${param:DB_DRIVER, env:DB_DRIVER}
+  vpc:
+    securityGroupIds:
+      - sg-0e41e6b14a3ba063d
+    subnetIds:
+      - subnet-0cf0b9a6e5cbad8c2
 
 functions:
   - ${file(routes/api/v1/yml/person_router.yml)}

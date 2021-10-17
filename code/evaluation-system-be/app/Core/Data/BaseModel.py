@@ -145,12 +145,12 @@ class BaseModel(Base):
             return query.all()
         return query.all()
 
-    def before_save(self, *args, **kwargs):
+    def before_save(self, sesion: Session, *args, **kwargs):
         """ Method to execute before save a row in database (polimorfism)
         """
         pass
 
-    def after_save(self, *args, **kwargs):
+    def after_save(self, sesion: Session, *args, **kwargs):
         """ Method to execute after save a row in database (polimorfismo)
         """
         pass
@@ -177,12 +177,12 @@ class BaseModel(Base):
         self.after_save()
         return self
 
-    def before_update(self, *args, **kwargs):
+    def before_update(self, sesion: Session, *args, **kwargs):
         """ Method to execute before update a row in database (polimorfism)
         """
         pass
 
-    def after_update(self, *args, **kwargs):
+    def after_update(self, sesion: Session, *args, **kwargs):
         """ Method to execute after update a row in database (polimorfism)
         """
         pass
