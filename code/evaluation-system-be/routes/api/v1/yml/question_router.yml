@@ -6,7 +6,7 @@ list-questions:
         method: get
         cors: ${self:custom.cors}
 
-find-person:
+find-questions:
   handler: routes/api/v1/QuestionRoutes.route_find
   events:
     - http:
@@ -14,7 +14,7 @@ find-person:
         method: get
         cors: ${self:custom.cors}
 
-create-person:
+create-questions:
   handler: routes/api/v1/QuestionRoutes.route_insert
   events:
     - http:
@@ -22,7 +22,7 @@ create-person:
         method: post
         cors: ${self:custom.cors}
 
-update-person:
+update-questions:
   handler: routes/api/v1/QuestionRoutes.route_update
   events:
     - http:
@@ -30,7 +30,7 @@ update-person:
         method: put
         cors: ${self:custom.cors}
 
-delete-person:
+delete-questions:
   handler: routes/api/v1/QuestionRoutes.route_delete
   events:
     - http:
