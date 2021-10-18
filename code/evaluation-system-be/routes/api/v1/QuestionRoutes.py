@@ -1,4 +1,4 @@
-from app.Controllers.QuestionController import index, find, store, update, delete
+from app.Controllers.QuestionController import index, find, store, update, delete, get_by_quiz
 from app.Services.QuestionService import QuestionService
 
 service = QuestionService()
@@ -17,4 +17,7 @@ def route_update(event, context):
 
 def route_delete(event, context):
     return delete(service, event)
+
+def route_get_by_quiz(event, context):
+    return get_by_quiz(service, event)
 
