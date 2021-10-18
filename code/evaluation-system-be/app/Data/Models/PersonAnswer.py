@@ -7,7 +7,7 @@ from ...Core.Data.BaseModel import BaseModel
 from .Quiz import Quiz
 from .Person import Person
 
-class PersonAnwer(BaseModel):
+class PersonAnswer(BaseModel):
     """ Table PersonsAnwers Database model
 
     Args:
