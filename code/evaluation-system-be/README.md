@@ -1,5 +1,5 @@
 # Serverless Framework Python REST API on AWS
-
+Eval deploy CICD
 This template demonstrates how to make a simple REST API with Python running on AWS Lambda and API Gateway using the traditional Serverless Framework.
 
 This template does not include any kind of persistence (database). For a more advanced examples check out the [examples repo](https://github.com/serverless/examples/) which includes DynamoDB, Mongo, Fauna and other examples.
