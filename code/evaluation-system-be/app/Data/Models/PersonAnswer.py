@@ -3,6 +3,11 @@ from sqlalchemy import Column, Integer
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.orm import relationship
+from app.Data.Enum.http_status_code import HTTPStatusCode
+from app.Data.Models.Answer import Answer
+
+from app.Data.Models.Question import Question
+from app.Exceptions.APIException import APIException
 from ...Core.Data.BaseModel import BaseModel
 from .Quiz import Quiz
 from .Person import Person
@@ -37,4 +42,15 @@ class PersonAnswer(BaseModel):
             "id", "IdPerson", "IdAnswer"
         ]
     
+    def before_save(self, sesion: Session, *args, **kwargs):
+        answer = sesion.query(Answer).get(self.IdAnswer)
+
+        filter_dict = {"IdQuestion": answer.IdQuestion}
+        answer_ids = list(map(lambda a: a.id, sesion.query(Answer).filter_by(**filter_dict).all()))
+        answered = sesion.query(PersonAnswer).filter(PersonAnswer.IdAnswer.in_(answer_ids)).count()
+        print(answer_ids)
+        print(answered)
+
+        if (self.IdAnswer in answer_ids) and (answered > 0):
+            raise APIException("Cannot add more than 1 answer per question", status_code = HTTPStatusCode.NOT_ACCEPTABLE.value)
         
