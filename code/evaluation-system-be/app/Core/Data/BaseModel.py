@@ -155,7 +155,7 @@ class BaseModel(Base):
         """
         pass
     
-    def save(self, session: Session, commit=True):
+    def save(self, session: Session, commit=True, *args, **kwargs):
         """ Save a register in database
 
         Args:
@@ -165,7 +165,7 @@ class BaseModel(Base):
         Raises:
             e: In case of error, the register will be erased and raise an Exception
         """
-        self.before_save()
+        self.before_save(session, *args, **kwargs)
         session.add(self)
         if commit:
             try:
@@ -174,7 +174,7 @@ class BaseModel(Base):
                 session.rollback()
                 raise e
 
-        self.after_save()
+        self.after_save(session, *args, **kwargs)
         return self
 
     def before_update(self, sesion: Session, *args, **kwargs):
@@ -194,7 +194,7 @@ class BaseModel(Base):
             session (Session): Database session
             object (dict): Dictionary with only the field to update
         """
-        self.before_update(*args, **kwargs)
+        self.before_update(session, *args, **kwargs, **object)
         keys = self.get_keys()
         for key in keys:
             if key in object:
@@ -202,7 +202,7 @@ class BaseModel(Base):
                 pass
 
         session.commit()
-        self.after_update(*args, **kwargs)
+        self.after_update(session, *args, **kwargs)
         return self
 
     def delete(self, session: Session, commit=True):
