@@ -18,7 +18,7 @@ class PersonAnswer(BaseModel):
     """
 
     __tablename__ = 'PersonsAnwers'
-    id = Column("IdPersonAnwer", Integer, primary_key=True)
+    id = Column("IdPersonAnswer", Integer, primary_key=True)
     IdPerson = Column("IdPerson", Integer, ForeignKey(Person.id))
     IdAnswer = Column("IdAnswer", Integer, ForeignKey(Quiz.id))
     
