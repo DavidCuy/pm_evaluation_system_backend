@@ -1,0 +1,664 @@
+openapi: 3.0.0
+info:
+  version: '1'
+  title: 'Evaluation system API'
+servers:
+  - url: 'http://localhost:3000/api/v1'
+    description: Local environment
+  - url: 'https://425plci4yi.execute-api.us-east-1.amazonaws.com/dev/api/v1'
+    description: Dev environment
+
+paths:
+  /quizzes:
+    get:
+      operationId: listQuizzes
+      tags:
+        - quiz
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'List of quiz models'
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginationResult'
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Quiz'
+    post:
+      operationId: createQuiz
+      tags:
+        - quiz
+      requestBody:
+        description: Quiz object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quiz'
+      responses:
+        '200':
+          description: 'The new Quiz'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quiz'
+  /quizzes/{id}:
+    get:
+      operationId: getQuiz
+      tags:
+        - quiz
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Get a quiz'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quiz'
+    put:
+      operationId: updateQuiz
+      tags:
+        - quiz
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Quiz object
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/Quiz'
+      responses:
+        '200':
+          description: 'Get a quiz'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quiz'
+    delete:
+      operationId: deleteQuiz
+      tags:
+        - quiz
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Delete a quiz'
+          content:
+            application/json:
+              schema:
+                nullable: True
+
+  /questions:
+    get:
+      operationId: listQuestions
+      tags:
+        - question
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'List of Question models'
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginationResult'
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Question'
+    post:
+      operationId: createQuestion
+      tags:
+        - question
+      requestBody:
+        description: Question object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+      responses:
+        '200':
+          description: 'The new Question'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+  /questions/{id}:
+    get:
+      operationId: getQuestion
+      tags:
+        - question
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Get a Question'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+    put:
+      operationId: updateQuestion
+      tags:
+        - question
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Question object
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/Question'
+      responses:
+        '200':
+          description: 'Get a Question'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+    delete:
+      operationId: deletePerson
+      tags:
+        - question
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Delete a Question'
+          content:
+            application/json:
+              schema:
+                nullable: True
+  /questions/quiz/{quizId}:
+    get:
+      operationId: getQuestionbyQuiz
+      tags:
+        - question
+        - quiz
+      parameters:
+        - name: quizId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Get a List of Questions by Quiz'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+    
+
+  /persons:
+    get:
+      operationId: listPersons
+      tags:
+        - person
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'List of person models'
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginationResult'
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Person'
+    post:
+      operationId: createPerson
+      tags:
+        - person
+      requestBody:
+        description: Person object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: 'The new Person'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+  /persons/{id}:
+    get:
+      operationId: getPerson
+      tags:
+        - person
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Get a person'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+    put:
+      operationId: updateQuiz
+      tags:
+        - person
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Person object
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: 'Get a person'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+    delete:
+      operationId: deletePerson
+      tags:
+        - person
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Delete a person'
+          content:
+            application/json:
+              schema:
+                nullable: True
+  
+  /answers:
+    get:
+      operationId: listAnswers
+      tags:
+        - answer
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'List of Answer models'
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginationResult'
+                properties:
+                  Data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Answer'
+    post:
+      operationId: createAnswer
+      tags:
+        - answer
+      requestBody:
+        description: Answer object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+      responses:
+        '200':
+          description: 'The new Answer'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer'
+  /answers/{id}:
+    get:
+      operationId: getAnswer
+      tags:
+        - answer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Get a Answer'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer'
+    put:
+      operationId: updateAnswer
+      tags:
+        - answer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Answer object
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: '#/components/schemas/Answer'
+      responses:
+        '200':
+          description: 'Get a Answer'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer'
+    delete:
+      operationId: deleteAnswer
+      tags:
+        - answer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Delete a Answer'
+          content:
+            application/json:
+              schema:
+                nullable: True
+  /answers/question/{questionId}:
+    get:
+      operationId: getAnswersByQuestion
+      tags:
+        - answer
+      parameters:
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Get a list of Answer'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer'
+
+  /persons-quizzes:
+    post:
+      operationId: createPersonQuiz
+      tags:
+        - personQuiz
+      requestBody:
+        description: PersonQuiz object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonQuiz'
+      responses:
+        '200':
+          description: 'The new PersonQuiz'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonQuiz'
+
+  /persons-answers:
+    post:
+      operationId: createPersonAnswer
+      tags:
+        - PersonAnswer
+      requestBody:
+        description: PersonAnswer object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonAnswer'
+      responses:
+        '200':
+          description: 'The new PersonAnswer'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonAnswer'
+
+  /resume/{idPerson}/person/{idQuiz}/quiz:
+    get:
+      operationId: resume
+      tags:
+        - resume
+      parameters:
+        - name: idPerson
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: idQuiz
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'List of answers of questions'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/Question'
+                  type: object
+                  properties:
+                    person_answer:
+                      type: object
+                      allOf:
+                        - $ref: '#/components/schemas/PersonAnswer'
+                    answers:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Answer'
+
+components:
+  schemas:
+    Person:
+      type: object
+      properties:
+        IdPerson:
+          type: integer
+        Name:
+          type: string
+    
+    Quiz:
+      type: object
+      properties:
+        IdQuiz:
+          type: integer
+        Name:
+          type: string
+        Description:
+          type: string
+    
+    Question:
+      type: object
+      properties:
+        IdQuestion:
+          type: integer
+        Description:
+          type: string
+    
+    Answer:
+      type: object
+      properties:
+        IdAnswer:
+          type: integer
+        Correct:
+          type: boolean
+        Description:
+          type: string
+    
+    PersonQuiz:
+      type: object
+      properties:
+        IdPersonQuiz:
+          type: integer
+        IdPerson:
+          type: integer
+        IdQuiz:
+          type: integer
+    
+    PersonAnswer:
+      type: object
+      properties:
+        IdPersonAnswer:
+          type: integer
+        IdPerson:
+          type: integer
+        IdAnswer:
+          type: integer
+    
+    Pagination:
+      type: object
+      properties:
+        offset:
+          type: integer
+        limit:
+          type: integer
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    
+    ResourceReference:
+      type: object
+      properties:
+        Name:
+          type: string
+        Action:
+          type: string
+        Ref:
+          type: string
+    
+    PaginationResult:
+      type: object
+      properties:
+        Links:
+          type: object
+          properties:
+            next:
+              $ref: '#/components/schemas/ResourceReference'
+            current:
+              $ref: '#/components/schemas/ResourceReference'
+            prev:
+              $ref: '#/components/schemas/ResourceReference'
+        Offset:
+          type: integer
+        Limit:
+          type: integer
+        Total:
+          type: integer

@@ -43,7 +43,7 @@ get-by-quiz-questions:
   handler: routes/api/v1/QuestionRoutes.route_get_by_quiz
   events:
     - http:
-        path: /api/v1/questions/{quizId}/quiz
+        path: /api/v1/questions/quiz/{quizId}
         method: get
         cors: ${self:custom.cors}
 

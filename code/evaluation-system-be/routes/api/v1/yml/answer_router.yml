@@ -42,6 +42,6 @@ get-by-question-answers:
   handler: routes/api/v1/AnswerRoutes.route_get_by_question
   events:
     - http:
-        path: /api/v1/answers/{questionId}/question
+        path: /api/v1/answers/question/{questionId}
         method: get
         cors: ${self:custom.cors}
